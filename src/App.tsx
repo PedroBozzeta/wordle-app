@@ -1,8 +1,9 @@
+import Board from "./components/Board"
 
 
 const App = () => {
   return (
-    <div>Hola</div>
+    <div className="container"><Board/></div>
   )
 }
 
