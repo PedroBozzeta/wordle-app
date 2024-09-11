@@ -1,5 +1,6 @@
-export  const getWord =async () => {
-    const response = await fetch("https://cors-anywhere.herokuapp.com/https://clientes.api.greenborn.com.ar/public-random-word?l=5", {
+export const getWord = async () => {
+    const randomWordIndex= Math.floor(Math.random()*1000)
+    const response = await fetch("https://api.datamuse.com/words?sp=?????&max=1000", {
         headers: {
             "Content-Type":"application/json"
         },
@@ -9,7 +10,7 @@ export  const getWord =async () => {
             return res.json();
         }}
     ).catch(err => console.error(err))
-    console.log(response)
-    return response;
+    
+    return response[randomWordIndex].word;
 
 }

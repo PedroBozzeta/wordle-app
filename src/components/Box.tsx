@@ -8,7 +8,7 @@ const Box = (props:BoxProps) => {
   
   
   return (
-    <div className={`box ${props.class}`} >{props.value.toUpperCase()}</div>
+    <div className={`box ${props.class} montserrat-font`} >{props.value.toUpperCase()}</div>
   )
 }
 
