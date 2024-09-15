@@ -1,4 +1,4 @@
-import { FINISHED } from "../constants/GameConstants";
+import {  PLAYING } from "../constants/GameConstants";
 
 
 interface InvisibleInputProps{
@@ -9,7 +9,7 @@ const InvisibleInput = (props:InvisibleInputProps) => {
 
   return (
     <>
-      <input type="search" className={`montserrat-font ${props.gameState==FINISHED?"hidden":"invisible-input"}`} onChange={()=>{}} value={props.currentWord}></input>
+      <input type="search" className={`montserrat-font invisible-input ${props.gameState==PLAYING?"show":"hidden"}`} onChange={()=>{}} value={props.currentWord}></input>
     </>
   );
 };
