@@ -4,7 +4,7 @@ import useKeyDownListener from "./useKeyDownListener";
 
 export function useGameLogic(word:string,state:WordleStateInterface,dispatch:(action:ReducerAction)=>void) {
     const handleKeyDown = (e: KeyboardEvent) => {
-      alert('entró al handler')
+      alert('entró al handler'+e)
         if (e.key && state.turn < 6 && state.gameState == PLAYING) {
           if (e.key === "Backspace") {
             //  Eliminating the last input
