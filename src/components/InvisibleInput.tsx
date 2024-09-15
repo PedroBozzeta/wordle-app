@@ -8,8 +8,7 @@ const InvisibleInput = () => {
   };
   return (
     <>
-      {" "}
-      <input type="text" className="invisible-input" ref={inputRef}></input>
+      <input type="search" className="invisible-input" ref={inputRef}></input>
       <button onClick={handleClick} className="get-focus-button montserrat-font">Guess</button>
     </>
   );
