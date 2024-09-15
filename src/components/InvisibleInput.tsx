@@ -1,15 +1,15 @@
-import {  useRef } from "react";
+import { FINISHED } from "../constants/GameConstants";
 
-const InvisibleInput = () => {
-  const inputRef = useRef<HTMLInputElement | null>(null);
 
-  const handleClick = () => {
-    inputRef.current?.focus();
-  };
+interface InvisibleInputProps{
+    currentWord: string;
+    gameState:string
+}
+const InvisibleInput = (props:InvisibleInputProps) => {
+
   return (
     <>
-      <input type="search" className="invisible-input" ref={inputRef}></input>
-      <button onClick={handleClick} className="get-focus-button montserrat-font">Guess</button>
+      <input type="search" className={`montserrat-font ${props.gameState==FINISHED?"hidden":"invisible-input"}`} onChange={()=>{}} value={props.currentWord}></input>
     </>
   );
 };

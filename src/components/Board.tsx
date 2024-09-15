@@ -19,7 +19,7 @@ const Board = () => {
     <>
       <Header gameState={state.gameState} win={state.win} word={word} />
       <Boxes boxData={state.boxData} />
-      <Footer gameState={state.gameState} />
+      <Footer gameState={state.gameState} currentWord={state.currentWord} />
     </>
   );
 };
