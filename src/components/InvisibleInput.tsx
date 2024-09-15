@@ -3,12 +3,12 @@ import { useEffect, useRef } from "react"
 
 
 const InvisibleInput = () => {
-    const inputRef= useRef<HTMLElement  |null>(null)
+    const inputRef= useRef<HTMLInputElement  |null>(null)
     useEffect(() => {
         inputRef.current?.focus(); 
     },[])
   return (
-    <input type='text' className="invisible-input"></input>
+    <input type='text' className="invisible-input" ref={inputRef}></input>
   )
 }
 
