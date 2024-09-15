@@ -1,6 +1,8 @@
 import { useReducer } from "react";
+import {  DATA_FETCHED, DELETE, FINISHED, INCORRECT, PLAYING,  RESTART, SUBMIT, TYPING } from "../constants/GameConstants";
+import { checkBoxContent } from "../helpers/checkBoxContent";
 
-interface BoxDataType {
+export interface BoxDataType {
     value: string;
     class: string;
 }
@@ -20,14 +22,14 @@ export interface ReducerAction {
 }
 const defaultBoxData: BoxDataType = {
     value: "",
-    class: "incorrect",
+    class: INCORRECT,
 };
 
 const emptyBoardData = Array.from({ length: 30 }, () => defaultBoxData);
 
 
 const wordleInitialState: WordleStateInterface = {
-    gameState: "playing",
+    gameState: PLAYING,
     win: false,
     currentWord: "",
     turn: 0,
@@ -35,12 +37,12 @@ const wordleInitialState: WordleStateInterface = {
     restart: true
 }
 
-export function gameStateReducer(state: WordleStateInterface, action: ReducerAction) {
+export function gameStateReducer(state: WordleStateInterface, action: ReducerAction):WordleStateInterface {
     // Current index of the key pressed
     const keyPosition = state.turn * 5 + state.currentWord.length;
 
     switch (action.type) {
-        case "DELETE": {
+        case DELETE: {
             if (state.currentWord.length > 0) {
                 //  Eliminating the last input
                 const newBoxData = [...state.boxData];
@@ -49,59 +51,45 @@ export function gameStateReducer(state: WordleStateInterface, action: ReducerAct
             }
             return state;
         }
-        case "TYPING": {
+        case TYPING: {
             if (state.currentWord.length < 5) {
                 const newBoxData = [...state.boxData];
                 newBoxData[keyPosition] = {
                     value: action.payload,
-                    class: "incorrect",
+                    class: INCORRECT,
                 };
                 return { ...state, boxData: newBoxData, currentWord: state.currentWord + action.payload }
             }
 
             return state;
         }
-        case "SUBMIT": {
+        case SUBMIT: {
             const newBoxData = [...state.boxData];
             const word = action.payload;
             let newGameState = state.gameState;
             let newWinState = state.win;
             if (state.currentWord.length === 5) {
                 for (let i = 0; i < 5; i++) {
-                    // Analize if any of the letter in the current answer is on the right position or at least exist in the word
-                    if (
-                        newBoxData[state.turn * 5 + i].value.toLowerCase() ===
-                        word[i].toLowerCase()
-                    ) {
-                        newBoxData[state.turn * 5 + i].class = "correct";
-                    } else if (
-                        word
-                            .split("")
-                            .some(
-                                (letter: string) =>
-                                    letter.toLowerCase() ===
-                                    newBoxData[state.turn * 5 + i].value.toLowerCase()
-                            )
-                    ) {
-                        newBoxData[state.turn * 5 + i].class = "present";
-                    }
+                  
+                    const index = state.turn * 5 + i;
+                   
+                    newBoxData[index].class = checkBoxContent(newBoxData[index].value,i,word)
                     if (state.currentWord.toLowerCase() === word.toLowerCase()) {
-                        newGameState = "finished";
+                        newGameState = FINISHED;
                         newWinState = true;
                     }
-
-                    if (state.turn + 1 >= 6) {
-                        state.gameState="finished"
-                    }
+                }
+                if (state.turn + 1 >= 6) {
+                    newGameState=FINISHED
                 }
                 return { ...state, boxData: newBoxData, currentWord: "", turn: state.turn + 1, win: newWinState, gameState: newGameState }
 
             }
             return state;
         }
-        case "DATA_FETCHED":
+        case DATA_FETCHED:
             return {...state,restart:!state.restart}
-        case "RESTART": 
+        case RESTART: 
             return wordleInitialState
         default:
             return state;

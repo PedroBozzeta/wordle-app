@@ -5,27 +5,29 @@ import Box from "./Box";
 
 import { useGameStateReducer } from "../hooks/useGameStateReducer";
 import { useGameLogic } from "../hooks/useGameLogic";
+import { Spinner } from "./Spinner";
+import { FINISHED, PLAYING } from "../constants/GameConstants";
 
 const Board = () => {
   const { state, dispatch } = useGameStateReducer();
   
-  const { word } = useFetchWord(state.restart,dispatch)
+  const { word,loading } = useFetchWord(state.restart,dispatch)
   useGameLogic(word,state,dispatch);
   
-  if (word.length !== 5) {
-    return <h2>Cargando....</h2>;
+  if (loading) {
+    return <Spinner />;
   }
   return (
     <>
-      {state.gameState == "playing" && (
+      {state.gameState == PLAYING && (
         <h4 className="montserrat-font description">Find the word</h4>
       )}
-      {state.gameState == "finished" && (
-        <h4 className={`montserrat-font ${state.win && "win"}`}>
+      {state.gameState == FINISHED && (
+        <h4 className={`montserrat-font ${state.win ?"win":"lose"}`}>
           {state.win ? "Correct!" : "The word was:"}
         </h4>
       )}
-      {state.gameState == "finished" && (
+      {state.gameState == FINISHED && (
         <h4 className="montserrat-font">{word.toUpperCase()}</h4>
       )}
       <div className="board">
@@ -33,7 +35,7 @@ const Board = () => {
           <Box value={item.value} class={item.class} key={index} />
         ))}
       </div>
-      {state.gameState == "finished" && (
+      {state.gameState == FINISHED && (
         <h4 className="montserrat-font heartbeat">{`PRESS [Enter] TO RESTART`}</h4>
       )}
     </>

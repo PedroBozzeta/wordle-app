@@ -1,39 +1,53 @@
-import { useEffect,  useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ReducerAction } from "./useGameStateReducer";
+import { useSelectRandomWord, WordResponse } from "./useSelectRandomWord";
+import { DATA_FETCHED } from "../constants/GameConstants";
 
-export default function useFetchWord(restart:boolean,dispatch:(action: ReducerAction)=>void) {
+export default function useFetchWord(restart: boolean, dispatch: (action: ReducerAction) => void) {
   const [word, setWord] = useState<string>("");
-  
-    useEffect(() => {
-        if (restart) {
-          const callFetchWordFunction = async () => {
-            const randomWordIndex= Math.floor(Math.random()*1000)
-            const response = await fetch("https://api.datamuse.com/words?sp=?????&max=1000", {
-                headers: {
-                    "Content-Type":"application/json"
-                },
-            })
-                .then(res =>{
-                  if (res.ok) {
-                    dispatch({type:"DATA_FETCHED"});
-                  return res.json();
-                  
-                }}
-            ).catch(err => console.error(err))
-            
-            const fetchedWord=response[randomWordIndex].word;
-            // Making sure that theres no blank space in the fetched word
-            if (fetchedWord.split("").some((letter: string) => letter.toLowerCase() == " ")) {
-              setWord("react");
-            } else {
-              setWord(fetchedWord);
-            }
-          };
-    
-          callFetchWordFunction();
-        }
-    }, [restart]);
+  const [loading, setLoading] = useState<boolean>(false)
 
-    return {word,setWord}
-    
+  const abortControllerRef = useRef<AbortController | null>(null)
+  
+  useEffect(() => {
+    if (restart) {
+      abortControllerRef.current?.abort();
+      abortControllerRef.current = new AbortController();
+
+      setLoading(true);
+
+      const callFetchWordFunction = async () => {
+
+        try {
+          const response = await fetch("https://api.datamuse.com/words?sp=?????&max=1000&topics=pet,nouns", {
+            headers: {
+              "Content-Type": "application/json"
+            },
+            signal: abortControllerRef.current?.signal
+          });
+          if (response.ok) {
+            dispatch({ type: DATA_FETCHED});
+            const parsedResponse:WordResponse[] = await response.json();
+            setWord(useSelectRandomWord(parsedResponse));
+          } else {
+            throw new Error(response.statusText)
+          }
+        } catch (error:any) {
+          if (error.name == "AbortError") {
+            console.error("Aborted Request")
+          } else {
+            return console.error(error)
+          }
+        }
+        finally {
+          setLoading(false)
+        }
+       ;}
+
+      callFetchWordFunction();
+    }
+  }, [restart]);
+
+  return { word,loading }
+
 }
