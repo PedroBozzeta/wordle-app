@@ -5,6 +5,7 @@ import { Spinner } from "./Spinner";
 import Header from "./Header";
 import Footer from "./Footer";
 import Boxes from "./Boxes";
+import InvisibleInput from "./InvisibleInput";
 
 const Board = () => {
   const { state, dispatch } = useGameStateReducer();
@@ -19,6 +20,7 @@ const Board = () => {
     <>
       <Header gameState={state.gameState} win={state.win} word={word} />
       <Boxes boxData={state.boxData} />
+      <InvisibleInput/>
       <Footer gameState={state.gameState} />
     </>
   );

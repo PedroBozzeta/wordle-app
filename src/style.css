@@ -94,7 +94,9 @@ h4 {
   animation: heartbeat 3.5s ease-in-out infinite both;
   margin: 10px 0 10px 0;
 }
-
+.invisible-input{
+  visibility: hidden;
+}
 @keyframes spinner {
   0% {
     transform: rotate(0);
