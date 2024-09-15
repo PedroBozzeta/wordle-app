@@ -1,21 +1,18 @@
-import { useEffect, useRef } from "react"
-
-
+import {  useRef } from "react";
 
 const InvisibleInput = () => {
-    const inputRef = useRef<HTMLInputElement | null>(null)
-    
-    const handleTap = () => {
-        inputRef.current?.focus(); 
-    }
-    useEffect(() => {
-        window.addEventListener('click',handleTap)
-        return ()=>window.removeEventListener('click',handleTap)
-    }, [handleTap])
-    
-  return (
-    <input type='text' className="invisible-input" ref={inputRef}></input>
-  )
-}
+  const inputRef = useRef<HTMLInputElement | null>(null);
 
-export default InvisibleInput
+  const handleClick = () => {
+    inputRef.current?.focus();
+  };
+  return (
+    <>
+      {" "}
+      <input type="text" className="invisible-input" ref={inputRef}></input>
+      <button onClick={handleClick} className="get-focus-button montserrat-font">Guess</button>
+    </>
+  );
+};
+
+export default InvisibleInput;
