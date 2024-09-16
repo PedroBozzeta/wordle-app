@@ -3,25 +3,33 @@ import { ReducerAction,  WordleStateInterface } from "./useGameStateReducer";
 import useKeyDownListener from "./useKeyDownListener";
 
 export function useGameLogic(word:string,state:WordleStateInterface,dispatch:(action:ReducerAction)=>void) {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      alert('entró al handler'+e.key)
-        if (e.key && state.turn < 6 && state.gameState == PLAYING) {
-          if (e.key === "Backspace") {
+  const handleKeyDown = (e: KeyboardEvent|InputEvent ) => {
+    let key;
+    if ('key' in e) {
+      // Es un KeyboardEvent
+      key = e.key;
+    } else {
+      // Es un InputEvent
+      console.log(e.data)
+      key = e.data?.slice(-1) ?? ''; 
+    }
+        if (key && state.turn < 6 && state.gameState == PLAYING) {
+          if (key === "Backspace") {
             //  Eliminating the last input
             dispatch({ type: DELETE });
-          } else if (/^[a-zA-Z]$/.test(e.key)) {
+          } else if (/^[a-zA-Z]$/.test(key)) {
             //  Handling key typing
-            dispatch({ type: TYPING, payload: e.key });
-          } else if (e.key === "Enter") {
+            dispatch({ type: TYPING, payload: key });
+          } else if (key === "Enter") {
             // Handling on Enter
             dispatch({type:SUBMIT,payload:word})
           }
         }
-        if (e.key === "Enter" && state.gameState == FINISHED) {
+        if (key === "Enter" && state.gameState == FINISHED) {
           // Cleaning all states and restarting the game
           dispatch({type:RESTART})
         }
     };
-    
+  
     useKeyDownListener(handleKeyDown);
 }
