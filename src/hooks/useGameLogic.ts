@@ -3,7 +3,7 @@ import { ReducerAction,  WordleStateInterface } from "./useGameStateReducer";
 import useKeyDownListener from "./useKeyDownListener";
 
 export function useGameLogic(word:string,state:WordleStateInterface,dispatch:(action:ReducerAction)=>void) {
-  const handleKeyDown = (e: KeyboardEvent | InputEvent) => {
+  const handleKeyDown = (e: any) => {
     
     console.log("entró al handler")
     let key;
