@@ -9,11 +9,11 @@ export function useGameLogic(word:string,state:WordleStateInterface,dispatch:(ac
     let key;
     if ('key' in e) {
       // Es un KeyboardEvent
-      console.log(e.key)
+      console.log(e)
       key = e.key;
     } else {
       // Es un InputEvent
-      console.log(e.data)
+      console.log(e)
       key = e.data?.slice(-1) ?? ''; 
     }
         if (key && state.turn < 6 && state.gameState == PLAYING) {
