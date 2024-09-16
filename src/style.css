@@ -88,6 +88,8 @@ h4 {
 }
 .press-to-restart {
   text-align: center;
+  font-size: 26px;
+  cursor: pointer;
 }
 .heartbeat {
   -webkit-animation: heartbeat 3.5s ease-in-out infinite both;
@@ -200,4 +202,5 @@ h4 {
   .hidden{
     visibility: hidden;
   }
+ 
 }
