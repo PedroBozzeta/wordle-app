@@ -1,15 +1,15 @@
 import {  PLAYING } from "../constants/GameConstants";
+import { useFooterContext } from "../contexts/FooterContext";
 
 
-interface InvisibleInputProps{
-    currentWord: string;
-    gameState:string
-}
-const InvisibleInput = (props:InvisibleInputProps) => {
+
+const InvisibleInput = () => {
+
+  const state = useFooterContext();
 
   return (
     <>
-      <input type="search" className={`montserrat-font invisible-input ${props.gameState==PLAYING?"show":"hidden"}`} onChange={()=>{}} value={props.currentWord}></input>
+      <input type="search" className={`montserrat-font invisible-input ${state.gameState==PLAYING?"show":"hidden"}`} onChange={()=>{}} value={state.currentWord}></input>
     </>
   );
 };
