@@ -15,7 +15,7 @@
 }
 .box {
   border: 3px solid white;
-  background-color: rgb(2, 15, 27);
+  background-color: gray;
   color: white;
   display: flex;
   align-items: center;
@@ -71,7 +71,7 @@
 }
 
 .incorrect {
-  background-color: gray;
+  background-color: rgb(2, 15, 27);
 }
 h4 {
   color: white;

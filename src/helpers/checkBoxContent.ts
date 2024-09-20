@@ -1,4 +1,4 @@
-import { CORRECT, PRESENT } from "../constants/GameConstants";
+import { CORRECT, INCORRECT, PRESENT } from "../constants/GameConstants";
 
 export function checkBoxContent(boxVal: string, indexInWord:number, word: string) {
     const boxValue = boxVal.toLowerCase();
@@ -21,7 +21,7 @@ export function checkBoxContent(boxVal: string, indexInWord:number, word: string
     ) {
         return PRESENT;
     } else {
-        return ""
+        return INCORRECT
     }
 
 }

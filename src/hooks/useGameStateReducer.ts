@@ -22,7 +22,7 @@ export interface ReducerAction {
 }
 const defaultBoxData: BoxDataType = {
     value: "",
-    class: INCORRECT,
+    class: "",
 };
 
 const emptyBoardData = Array.from({ length: 30 }, () => defaultBoxData);
