@@ -1,6 +1,6 @@
 
-import { BoxDataType } from '../hooks/useGameStateReducer'
-import Box from './Box'
+import { BoxDataType } from '../../hooks/useGameStateReducer'
+import Box from '../Box/Box'
 
 interface BoxesProps{
     boxData: BoxDataType[]

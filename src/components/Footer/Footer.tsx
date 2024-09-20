@@ -1,8 +1,8 @@
 
-import { FINISHED, RESTART } from "../constants/GameConstants";
-import { useFooterContext } from "../contexts/FooterContext";
-import { ReducerAction } from "../hooks/useGameStateReducer";
-import InvisibleInput from "./InvisibleInput";
+import { FINISHED, RESTART } from "../../constants/GameConstants";
+import { useFooterContext } from "../../contexts/FooterContext";
+import { ReducerAction } from "../../hooks/useGameStateReducer";
+import InvisibleInput from "../InvisibleInput/InvisibleInput";
 
 interface FooterProps {
   dispatch: (action: ReducerAction) => void

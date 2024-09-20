@@ -1,5 +1,5 @@
-import {  PLAYING } from "../constants/GameConstants";
-import { useFooterContext } from "../contexts/FooterContext";
+import {  PLAYING } from "../../constants/GameConstants";
+import { useFooterContext } from "../../contexts/FooterContext";
 
 
 

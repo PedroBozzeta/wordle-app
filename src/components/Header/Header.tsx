@@ -1,5 +1,5 @@
 
-import { FINISHED, PLAYING } from '../constants/GameConstants'
+import { FINISHED, PLAYING } from '../../constants/GameConstants'
 
 interface HeaderProps{
   gameState: string; win: boolean; word:string

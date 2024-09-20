@@ -1,10 +1,11 @@
-import Board from "./components/Board"
-
+import Board from "./components/Board/Board.tsx";
 
 const App = () => {
   return (
-    <div className="container"><Board/></div>
-  )
-}
+    <div className="container">
+      <Board />
+    </div>
+  );
+};
 
-export default App
+export default App;

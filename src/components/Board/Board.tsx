@@ -1,11 +1,11 @@
-import useFetchWord from "../hooks/useFetchWord";
-import { useGameStateReducer} from "../hooks/useGameStateReducer";
-import { useGameLogic } from "../hooks/useGameLogic";
-import { Spinner } from "./Spinner";
-import Header from "./Header";
-import Footer from "./Footer";
-import Boxes from "./Boxes";
-import { FooterContext } from "../contexts/FooterContext";
+import useFetchWord from "../../hooks/useFetchWord";
+import { useGameStateReducer} from "../../hooks/useGameStateReducer";
+import { useGameLogic } from "../../hooks/useGameLogic";
+import { Spinner } from "../Spinner/Spinner";
+import Header from "./../Header/Header";
+import Footer from "../Footer/Footer";
+import Boxes from "../Boxes/Boxes";
+import { FooterContext } from "../../contexts/FooterContext";
   
 const Board = () => {
   const { state, dispatch } = useGameStateReducer();
