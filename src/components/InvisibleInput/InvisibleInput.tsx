@@ -1,15 +1,19 @@
-import {  PLAYING } from "../../constants/GameConstants";
+import { PLAYING } from "../../constants/GameConstants";
 import { useFooterContext } from "../../contexts/FooterContext";
 
-
-
 const InvisibleInput = () => {
-
-  const state = useFooterContext();
-
+  const value = useFooterContext();
   return (
     <>
-      <input type="search" className={`montserrat-font invisible-input ${state.gameState==PLAYING?"show":"hidden"}`} onChange={()=>{}} value={state.currentWord}></input>
+      <input
+        type="search"
+        className={`montserrat-font invisible-input ${
+          value.state.gameState == PLAYING ? "show" : "hidden"
+        }`}
+        onChange={() => {
+        }}
+        value={value.state.currentWord}
+      ></input>
     </>
   );
 };

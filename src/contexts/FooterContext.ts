@@ -1,7 +1,14 @@
 import { createContext, useContext } from "react";
-import { WordleStateInterface } from "../hooks/useGameStateReducer";
+import { ReducerAction, WordleStateInterface } from "../hooks/useGameStateReducer";
 
-export const FooterContext = createContext<WordleStateInterface | undefined>(undefined)
+export interface FooterContextValues{
+    state: WordleStateInterface;
+    dispatch: (action: ReducerAction) => void;
+    word: string;
+}
+
+export const FooterContext = createContext<FooterContextValues | undefined>(undefined)
+
 export function useFooterContext() {
     const state = useContext(FooterContext);
     if (state === undefined) {
